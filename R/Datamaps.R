@@ -130,7 +130,6 @@ ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play
   d <- Datamaps$new()
   fml = lattice::latticeParseFormula(x, data = data)
 
-  # BEGIN Patty Changes ---------------------------------------------------------------
   myfillkey <- cut(
       fml$left,
       unique(quantile(fml$left, seq(0, 1, 1/ncuts))),
@@ -140,13 +139,10 @@ ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play
 
   if (!is.null(my_breaks)) {
       myfillkey <- cut(fml$left, breaks = my_breaks, ordered_result=TRUE, include.lowest=include_lowest)
-      print('setting breaks') #debug
-      print(myfillkey) #debug
   }
 
   data = transform (data, fillKey = myfillkey)
 
-  # END Patty Changes ---------------------------------------------------------------
 
   fillColors = brewer.pal(ncuts, pal)
   d$set(
