@@ -125,7 +125,7 @@ ichoropleth <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play 
 #'  Plus included forward and back buttons around slider
 #' 
 #ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, ...){
-#ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
+ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
 
   d <- Datamaps$new()
   fml = lattice::latticeParseFormula(x, data = data)
