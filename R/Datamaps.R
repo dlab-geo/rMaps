@@ -145,7 +145,7 @@ ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5
 
 
   #fillColors = brewer.pal(ncuts, pal)
-  fillColors <- c(brewer.pal(ncuts, pal), no_data_color)
+  fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
   
   d$set(
     scope = map, 
