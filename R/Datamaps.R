@@ -121,11 +121,11 @@ ichoropleth <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play 
 #' Draw an interactive choropleth map with options
 #' - my_breaks: custom breaks 
 #' - my_title: custom html title
+#' - no_data_color: custom no data fill color
 #' - include_lowest: option to include.lowest value in first legend bin
-#'  Plus included forward and back buttons around slider
+#' Plus included forward and back buttons around slider
 #' 
-#ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, ...){
-ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
+ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
 
   d <- Datamaps$new()
   fml = lattice::latticeParseFormula(x, data = data)
@@ -144,7 +144,9 @@ ichoropleth2 <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play
   data = transform (data, fillKey = myfillkey)
 
 
-  fillColors = brewer.pal(ncuts, pal)
+  #fillColors = brewer.pal(ncuts, pal)
+  fillColors <- c(brewer.pal(ncuts, pal), no_data_color)
+  
   d$set(
     scope = map, 
     fills = as.list(setNames(fillColors, levels(data$fillKey))), 
