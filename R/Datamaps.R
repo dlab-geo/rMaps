@@ -145,11 +145,14 @@ ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5
 
 
   #fillColors = brewer.pal(ncuts, pal)
-  fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
-  
+  myfills<- as.list(setNames(fillColors, levels(data$fillKey))),
+  if (!is.null(nodata_color) {
+  	fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
+  	names(myfills)[length(myfills)] <- 'defaultFill'
+  }
   d$set(
     scope = map, 
-    fills = as.list(setNames(fillColors, levels(data$fillKey))), 
+    fills = myfills, #as.list(setNames(fillColors, levels(data$fillKey))), 
     legend = legend,
     labels = labels,
     ...
