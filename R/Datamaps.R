@@ -125,7 +125,7 @@ ichoropleth <- function(x, data, pal = "Blues", ncuts = 5, animate = NULL, play 
 #' - include_lowest: option to include.lowest value in first legend bin
 #' Plus included forward and back buttons around slider
 #' 
-ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
+ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", nodata_label="NA", ncuts = 5, animate = NULL, play = F, map = 'usa', legend = TRUE, labels = TRUE, include_lowest=FALSE, my_breaks = NULL, my_title='', ...){
 
   d <- Datamaps$new()
   fml = lattice::latticeParseFormula(x, data = data)
@@ -142,15 +142,20 @@ ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5
   }
 
   data = transform (data, fillKey = myfillkey)
-
-
   fillColors = brewer.pal(ncuts, pal)
   myfills<- as.list(setNames(fillColors, levels(data$fillKey)))
+  
   if (!is.null(nodata_color)) {
-  	fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
-  	myfills<- as.list(setNames(fillColors, levels(data$fillKey)))
-  	names(myfills)[length(myfills)] <- 'defaultFill'
+        # add a fillkey for our nodata value
+	levels(data$fillKey) <- c(levels(data$fillKey), nodata_label) #add it to the factor levels
+	data <- within(data, fillKey[is.na(fillKey)] <- nodata_label) #update the dataframe
+ 
+	# add the nodata color to the end of the color pal
+ 	fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
   }
+  
+  # update the fill labels  
+  myfills<- as.list(setNames(fillColors, levels(data$fillKey)))
   
   d$set(
     scope = map, 
