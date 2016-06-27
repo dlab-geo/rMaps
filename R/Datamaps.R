@@ -146,7 +146,7 @@ ichoropleth2 <- function(x, data, pal = "Blues", nodata_color="white", ncuts = 5
 
   fillColors = brewer.pal(ncuts, pal)
   myfills<- as.list(setNames(fillColors, levels(data$fillKey)))
-  if (!is.null(nodata_color) {
+  if (!is.null(nodata_color)) {
   	fillColors <- c(brewer.pal(ncuts, pal), nodata_color)
   	myfills<- as.list(setNames(fillColors, levels(data$fillKey)))
   	names(myfills)[length(myfills)] <- 'defaultFill'
